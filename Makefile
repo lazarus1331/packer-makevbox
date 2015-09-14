@@ -7,7 +7,7 @@ help:
 	@echo "  Versions:"
 	@echo "    Debian 8.2"
 	@echo "    CentOS 7.1"
-	@echo "    Ubuntu 14.04"
+	@echo "    Ubuntu 15.04"
 	@echo ""
 	@echo "  Usage:"
 	@echo "    make {debian|centos|ubuntu}[debug]"
