@@ -1,0 +1,62 @@
+{
+  "variables": {
+    "mirror": "http://mirror.oss.ou.edu/centos",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_port": "22",
+    "vm_name": "packer-base64-centos",
+    "cpu": "1",
+    "memory": "768",
+    "headless": "true"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+          "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-7.1/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 7960,
+      "headless": "{{user `headless`}}",
+      "guest_os_type": "RedHat_64",
+      "http_directory": "http",
+      "iso_checksum": "7c1e34e95c991175290d704dbdcc6531774cbecb",
+      "iso_checksum_type": "sha1",
+      "iso_url": "{{user `mirror`}}/7/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_port": "{{user `ssh_port`}}",
+      "vm_name": "{{user `vm_name`}}",
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo {{user `ssh_password`}}|sudo -S /sbin/shutdown -hP now",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "{{user `cpu`}}" ]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [ "HOSTNAME={{user `vm_name`}}" ],
+      "execute_command": "echo {{user `ssh_password`}} | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "scripts": [
+        "scripts/common/sudoers.sh",
+        "scripts/common/sshd.sh",
+        "scripts/centos/fix-slow-dns.sh",
+        "scripts/common/vagrant.sh",
+        "scripts/common/vmtools.sh",
+        "scripts/centos/cleanup.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "only": ["virtualbox-iso"],
+      "output": "./builds/vagrant/{{user `vm_name`}}.box"
+    }
+  ]
+}
