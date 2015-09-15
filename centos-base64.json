@@ -4,7 +4,8 @@
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
     "ssh_port": "22",
-    "vm_name": "packer-base64-centos",
+    "vm_name": "packer-centos64-GP",
+    "puppet_master": "",
     "cpu": "1",
     "memory": "768",
     "headless": "true"
@@ -39,7 +40,8 @@
   ],
   "provisioners": [
     {
-      "environment_vars": [ "HOSTNAME={{user `vm_name`}}" ],
+      "environment_vars": [ "HOSTNAME={{user `vm_name`}}",
+                            "PUPPET_MASTER={{user `puppet_master`}}" ],
       "execute_command": "echo {{user `ssh_password`}} | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
         "scripts/centos/update.sh",
@@ -48,6 +50,8 @@
         "scripts/centos/fix-slow-dns.sh",
         "scripts/common/vagrant.sh",
         "scripts/centos/vmtools.sh",
+        "scripts/centos/git.sh",
+        "scripts/centos/puppet.sh",
         "scripts/centos/cleanup.sh"
       ],
       "type": "shell"
