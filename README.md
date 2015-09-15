@@ -1,9 +1,10 @@
-# packer-makevbox
-packer builders for base64 Vagrant boxes with Debian, CentOS, or Ubuntu
+# packer-makevbox:chef+docker
+packer builders for base64 Vagrant boxes with Debian, CentOS, or Ubuntu. Includes Ansible, Chef, and Docker.
 
 # Usage
 	HELP MENU
 	Makes a base64 vagrant image with debian, centos, or ubuntu
+    Also installs Ansible, Chef, Docker
 	Versions:
 	    Debian 8.2
 	    CentOS 7.1
@@ -13,7 +14,7 @@ packer builders for base64 Vagrant boxes with Debian, CentOS, or Ubuntu
 	    make {debian|centos|ubuntu}[debug]
     
     Add to Vagrant:
-	    vagrant box add my-box ../packer-makevbox/builds/vagrant/packer-base64-{debian|centos|ubuntu}.box
+	    vagrant box add my-box ../packer-makevbox/builds/vagrant/packer-{debian|centos|ubuntu}64-ACD.box
     
 
 # Credits
