@@ -62,6 +62,9 @@
         "scripts/debian/sudoers.sh",
         "scripts/common/vagrant.sh",
         "scripts/common/vmtools.sh",
+        "scripts/common/ansible.sh",
+        "scripts/common/chef.sh",
+        "scripts/common/docker.sh",
         "scripts/debian/cleanup.sh"
       ],
       "type": "shell"

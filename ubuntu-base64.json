@@ -56,6 +56,9 @@
         "scripts/ubuntu/sudoers.sh",
         "scripts/common/vagrant.sh",
         "scripts/common/vmtools.sh",
+        "scripts/common/ansible.sh",
+        "scripts/common/chef.sh",
+        "scripts/common/docker.sh",
         "scripts/ubuntu/cleanup.sh"
       ],
       "type": "shell"
