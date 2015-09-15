@@ -42,12 +42,13 @@
       "environment_vars": [ "HOSTNAME={{user `vm_name`}}" ],
       "execute_command": "echo {{user `ssh_password`}} | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
+        "scripts/centos/update.sh",
         "scripts/common/sudoers.sh",
         "scripts/common/sshd.sh",
         "scripts/centos/fix-slow-dns.sh",
         "scripts/centos/ansible.sh",
         "scripts/common/vagrant.sh",
-        "scripts/common/vmtools.sh",
+        "scripts/centos/vmtools.sh",
         "scripts/common/chef.sh",
         "scripts/common/docker.sh",
         "scripts/centos/cleanup.sh"
