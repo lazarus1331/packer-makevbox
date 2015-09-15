@@ -4,7 +4,8 @@
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
     "ssh_port": "22",
-    "vm_name": "packer-base64-debian",
+    "vm_name": "packer-debian64-ACD",
+    "docker_version": "latest",
     "cpu": "1",
     "memory": "768",
     "headless": "true"
@@ -53,7 +54,8 @@
   ],
   "provisioners": [
     {
-      "environment_vars": [ "HOSTNAME={{user `vm_name`}}" ],
+      "environment_vars": [ "HOSTNAME={{user `vm_name`}}",
+                            "CHEF_VERSION={{user `docker_version`}}" ],
       "execute_command": "echo {{user `ssh_password`}} | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
         "scripts/debian/update.sh",
